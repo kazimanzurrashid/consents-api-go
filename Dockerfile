@@ -3,10 +3,8 @@ WORKDIR /usr/app
 COPY . .
 ENV CGO_ENABLED=0
 ENV GOOS=linux
-RUN go get -d -t ./...
-RUN go test ./...
-RUN go build ./cmd/server
-RUN go build ./cmd/health-check
+RUN go get -d -t ./... && go test ./...
+RUN go build ./cmd/server && go build ./cmd/health-check
 
 FROM scratch
 WORKDIR /usr/app

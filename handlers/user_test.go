@@ -457,21 +457,18 @@ type fakeUserService struct {
 	err  error
 }
 
-//goland:noinspection GoUnusedParameter
 func (srv fakeUserService) Create(
-	ctx context.Context,
-	request *models.UserCreateRequest) (*models.User, error) {
+	_ context.Context,
+	_ *models.UserCreateRequest) (*models.User, error) {
 	return srv.user, srv.err
 }
 
-//goland:noinspection GoUnusedParameter
-func (srv fakeUserService) Delete(ctx context.Context, id string) error {
+func (srv fakeUserService) Delete(_ context.Context, _ string) error {
 	return srv.err
 }
 
-//goland:noinspection GoUnusedParameter
 func (srv fakeUserService) Detail(
-	ctx context.Context,
-	id string) (*models.User, error) {
+	_ context.Context,
+	_ string) (*models.User, error) {
 	return srv.user, srv.err
 }

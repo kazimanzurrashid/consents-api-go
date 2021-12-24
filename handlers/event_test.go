@@ -230,9 +230,8 @@ type fakeEventService struct {
 	err error
 }
 
-//goland:noinspection GoUnusedParameter
 func (srv *fakeEventService) Create(
-	ctx context.Context,
-	request *models.EventCreateRequest) error {
+	_ context.Context,
+	_ *models.EventCreateRequest) error {
 	return srv.err
 }

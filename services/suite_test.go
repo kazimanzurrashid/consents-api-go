@@ -2,7 +2,6 @@ package services
 
 import (
 	"database/sql"
-	"log"
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
@@ -14,7 +13,7 @@ func NewSQLMock() (*sql.DB, sqlmock.Sqlmock) {
 	db, mock, err := sqlmock.New()
 
 	if err != nil {
-		log.Fatalf("error creating sql mock %v", err)
+		panic(err)
 	}
 
 	return db, mock

@@ -14,5 +14,5 @@ COPY --from=builder /usr/app/server ./
 COPY --from=builder /usr/app/health-check ./
 COPY --from=builder /usr/app/schema.sql ./
 EXPOSE 8080
-HEALTHCHECK --start-period=5s --interval=5s --timeout=3s CMD ["./health-check"]
+HEALTHCHECK --start-period=10s --interval=5s --timeout=3s CMD ["./health-check"]
 ENTRYPOINT ["./server"]

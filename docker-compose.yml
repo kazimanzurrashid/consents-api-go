@@ -1,0 +1,21 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres:14.1-alpine3.15"
+    environment:
+      POSTGRES_PASSWORD: "test123"
+      POSTGRES_DB: "consents"
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      POSTGRES_HOST: "postgres"
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "test123"
+      POSTGRES_DB: "consents"
+      PORT: "8080"
+    depends_on:
+      - postgres
+    restart: on-failure

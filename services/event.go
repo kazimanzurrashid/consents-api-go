@@ -18,7 +18,7 @@ type PostgresEvent struct {
 	db *sql.DB
 }
 
-func NewEvent(db *sql.DB) *PostgresEvent {
+func NewEvent(db *sql.DB) Event {
 	return &PostgresEvent{db}
 }
 

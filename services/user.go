@@ -22,7 +22,7 @@ type PostgresUser struct {
 	db *sql.DB
 }
 
-func NewUser(db *sql.DB) *PostgresUser {
+func NewUser(db *sql.DB) User {
 	return &PostgresUser{db}
 }
 

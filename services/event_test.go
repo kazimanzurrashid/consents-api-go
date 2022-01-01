@@ -26,10 +26,10 @@ var _ = Describe("Event", func() {
 		BeforeEach(func() {
 			userID = generateID()
 			req = &models.EventCreateRequest{
-				User: models.EventCreateUser{
+				User: &models.EventCreateUser{
 					ID: userID,
 				},
-				Consents: []models.Consent{
+				Consents: &[]models.Consent{
 					{
 						ID:      models.ConsentEmail,
 						Enabled: true,

@@ -19,8 +19,8 @@ func (ecu EventCreateUser) Validate() error {
 }
 
 type EventCreateRequest struct {
-	User     EventCreateUser `json:"user"`
-	Consents []Consent       `json:"consents"`
+	User     *EventCreateUser `json:"user"`
+	Consents *[]Consent       `json:"consents"`
 }
 
 func (ecr EventCreateRequest) Validate() error {

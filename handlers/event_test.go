@@ -24,10 +24,10 @@ var _ = Describe("Event", func() {
 				var payload bytes.Buffer
 
 				err := json.NewEncoder(&payload).Encode(models.EventCreateRequest{
-					User: models.EventCreateUser{
+					User: &models.EventCreateUser{
 						ID: "7b5a3155-7a73-42de-b87e-23f50a10180a",
 					},
-					Consents: []models.Consent{
+					Consents: &[]models.Consent{
 						{
 							ID:      models.ConsentEmail,
 							Enabled: true,
@@ -112,10 +112,10 @@ var _ = Describe("Event", func() {
 				var payload bytes.Buffer
 
 				err := json.NewEncoder(&payload).Encode(models.EventCreateRequest{
-					User: models.EventCreateUser{
+					User: &models.EventCreateUser{
 						ID: "foo",
 					},
-					Consents: []models.Consent{
+					Consents: &[]models.Consent{
 						{
 							ID:      "bar",
 							Enabled: true,
@@ -172,10 +172,10 @@ var _ = Describe("Event", func() {
 				var payload bytes.Buffer
 
 				err := json.NewEncoder(&payload).Encode(models.EventCreateRequest{
-					User: models.EventCreateUser{
+					User: &models.EventCreateUser{
 						ID: "7b5a3155-7a73-42de-b87e-23f50a10180a",
 					},
-					Consents: []models.Consent{
+					Consents: &[]models.Consent{
 						{
 							ID:      models.ConsentEmail,
 							Enabled: true,

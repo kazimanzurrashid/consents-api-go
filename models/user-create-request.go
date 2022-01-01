@@ -15,6 +15,5 @@ func (ucr UserCreateRequest) Validate() error {
 		validation.Field(
 			&ucr.Email,
 			validation.Required,
-			validation.Length(5, 128),
 			is.Email))
 }

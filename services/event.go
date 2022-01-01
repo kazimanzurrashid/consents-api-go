@@ -33,7 +33,7 @@ func (e *PostgresEvent) Create(
 		return err
 	}
 
-	for _, consent := range request.Consents {
+	for _, consent := range *request.Consents {
 		if _, err := tx.ExecContext(
 			ctx,
 			query,

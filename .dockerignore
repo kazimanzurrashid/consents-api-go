@@ -1,12 +1,13 @@
 .git
+.github
 .gitignore
 
 .vscode
 .idea
 
-pkg
-bin
-
 Dockerfile
 docker-compose.yml
+
 .env
+.deepsource.toml
+consents.postman_collection.json

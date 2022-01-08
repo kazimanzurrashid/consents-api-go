@@ -21,6 +21,12 @@ import (
 	"github.com/kazimanzurrashid/consents-api-go/services"
 )
 
+func closeDB(db *sql.DB) {
+	if err := db.Close(); err != nil {
+		log.Fatalf("postgres close error: %v", err)
+	}
+}
+
 func main() {
 	_, currentFile, _, _ := runtime.Caller(0)
 	currentDir := path.Dir(currentFile)
@@ -51,16 +57,13 @@ func main() {
 		return
 	}
 
-	defer func() {
-		if err := db.Close(); err != nil {
-			log.Fatalf("postgres close error: %v", err)
-		}
-	}()
+	defer closeDB(db)
 
 	start := time.Now()
 
 	for db.Ping() != nil {
 		if start.After(start.Add(10 * time.Second)) {
+			closeDB(db)
 			log.Fatal(
 				"failed to connect to postgres server even after retrying " +
 					"for 10 seconds")
@@ -72,11 +75,13 @@ func main() {
 	schema, err := os.ReadFile(schemaFile)
 
 	if err != nil {
+		closeDB(db)
 		log.Fatalf("schema file read error: %v", err)
 		return
 	}
 
 	if _, err := db.Exec(string(schema)); err != nil {
+		closeDB(db)
 		log.Fatalf("schema file execute error: %v", err)
 		return
 	}
@@ -109,6 +114,7 @@ func main() {
 	err = http.ListenAndServe(port, gh.LoggingHandler(os.Stdout, router))
 
 	if err != nil {
+		closeDB(db)
 		log.Fatalf("server listen error: %v", err)
 	}
 }

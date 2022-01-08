@@ -62,10 +62,9 @@ func main() {
 	for db.Ping() != nil {
 		if start.After(start.Add(10 * time.Second)) {
 			closeDB(db)
-			log.Print(
-				"failed to connect to postgres server even after retrying " +
+			log.Fatalf(
+				"failed to ping to postgres server even after retrying " +
 					"for 10 seconds")
-			os.Exit(1)
 			return
 		}
 	}
@@ -75,15 +74,13 @@ func main() {
 
 	if err != nil {
 		closeDB(db)
-		log.Printf("schema file read error: %v", err)
-		os.Exit(1)
+		log.Fatalf("schema file read error: %v", err)
 		return
 	}
 
 	if _, err := db.Exec(string(schema)); err != nil {
 		closeDB(db)
-		log.Printf("schema file execute error: %v", err)
-		os.Exit(1)
+		log.Fatalf("schema file execute error: %v", err)
 		return
 	}
 
@@ -116,7 +113,6 @@ func main() {
 
 	if err != nil {
 		closeDB(db)
-		log.Printf("server listen error: %v", err)
-		os.Exit(1)
+		log.Fatalf("server listen error: %v", err)
 	}
 }

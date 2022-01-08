@@ -22,9 +22,7 @@ import (
 )
 
 func closeDB(db *sql.DB) {
-	if err := db.Close(); err != nil {
-		log.Fatalf("postgres close error: %v", err)
-	}
+	_ = db.Close()
 }
 
 func main() {

@@ -13,4 +13,6 @@ jobs:
       - name: Test
         run: |
           go get -d -t ./...
-          go test ./...
+          go test ./... -coverprofile=coverage.out
+      - name: Upload coverage
+        run: bash <(curl -s https://codecov.io/bash)

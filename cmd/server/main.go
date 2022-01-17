@@ -1,15 +1,19 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 	"path"
 	"path/filepath"
 	"runtime"
+	"syscall"
 	"time"
 
 	gh "github.com/gorilla/handlers"
@@ -107,12 +111,27 @@ func main() {
 		})
 	}).Methods(http.MethodGet)
 
-	port := fmt.Sprintf(":%s", os.Getenv("PORT"))
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%s", os.Getenv("PORT")),
+		Handler: gh.LoggingHandler(os.Stdout, router),
+	}
 
-	err = http.ListenAndServe(port, gh.LoggingHandler(os.Stdout, router))
+	go func() {
+		if err := server.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
+			closeDB()
+			log.Fatalf("server listen and serve error: %v", err)
+		}
+	}()
 
-	if err != nil {
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+	<-sigChan
+
+	shutdownCtx, shutdownRelease := context.WithTimeout(context.Background(), 10*time.Second)
+	defer shutdownRelease()
+
+	if err := server.Shutdown(shutdownCtx); err != nil {
 		closeDB()
-		log.Fatalf("server listen error: %v", err)
+		log.Fatalf("server shutdown error: %v", err)
 	}
 }

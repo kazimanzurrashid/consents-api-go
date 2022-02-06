@@ -8,8 +8,6 @@ create table if not exists users
             unique
 );
 
-alter table users owner to postgres;
-
 create table if not exists events
 (
     id         char(36)                 not null
@@ -23,5 +21,3 @@ create table if not exists events
     constraint "uq_userId_consentId_createdAt"
         unique (user_id, consent_id, created_at)
 );
-
-alter table events owner to postgres;

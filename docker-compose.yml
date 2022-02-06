@@ -3,12 +3,19 @@ services:
   postgres:
     image: "postgres:14.1-alpine3.15"
     environment:
-      POSTGRES_PASSWORD: "test123"
-      POSTGRES_DB: "consents"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
   api:
-    build: .
+    build:
+      context: .
+      args:
+        POSTGRES_HOST: "postgres"
+        POSTGRES_USER: "${POSTGRES_USER}"
+        POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+        POSTGRES_DB: "${POSTGRES_DB}"
+        PORT: "${PORT}"
     ports:
-      - "8080:8080"
+      - "${PORT}:${PORT}"
     environment:
       POSTGRES_HOST: "postgres"
       POSTGRES_PORT: "5432"

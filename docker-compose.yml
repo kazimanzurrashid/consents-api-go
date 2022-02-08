@@ -16,13 +16,6 @@ services:
         PORT: "${PORT}"
     ports:
       - "${PORT}:${PORT}"
-    environment:
-      POSTGRES_HOST: "postgres"
-      POSTGRES_PORT: "5432"
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "test123"
-      POSTGRES_DB: "consents"
-      PORT: "8080"
     depends_on:
       - postgres
     restart: on-failure

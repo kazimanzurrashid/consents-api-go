@@ -11,7 +11,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/lib/pq v1.10.4
 	github.com/onsi/ginkgo v1.16.5
-	github.com/onsi/gomega v1.18.1
+	github.com/onsi/gomega v1.19.0
 )
 
 require (
@@ -20,7 +20,7 @@ require (
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
-	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
+	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
 	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect

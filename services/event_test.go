@@ -50,7 +50,7 @@ var _ = Describe("Event", func() {
 
 			BeforeEach(func() {
 				mock.ExpectBegin()
-				mock.ExpectExec("INSERT INTO \"public\".\"events\"").
+				mock.ExpectExec("INSERT INTO \"events\"").
 					WithArgs(
 						sqlmock.AnyArg(),
 						userID,
@@ -58,7 +58,7 @@ var _ = Describe("Event", func() {
 						sqlmock.AnyArg(),
 						true).
 					WillReturnResult(sqlmock.NewResult(0, 1))
-				mock.ExpectExec("INSERT INTO \"public\".\"events\"").
+				mock.ExpectExec("INSERT INTO \"events\"").
 					WithArgs(
 						sqlmock.AnyArg(),
 						userID,
@@ -95,7 +95,7 @@ var _ = Describe("Event", func() {
 
 			BeforeEach(func() {
 				mock.ExpectBegin()
-				mock.ExpectExec("INSERT INTO \"public\".\"events\"").
+				mock.ExpectExec("INSERT INTO \"events\"").
 					WithArgs(
 						sqlmock.AnyArg(),
 						userID,

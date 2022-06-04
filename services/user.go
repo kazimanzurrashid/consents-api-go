@@ -30,7 +30,7 @@ func (u *PostgresUser) Create(
 	ctx context.Context,
 	request *models.UserCreateRequest) (*models.User, error) {
 
-	const query = `INSERT INTO "public"."users"(id, email) VALUES($1, $2)`
+	const query = `INSERT INTO "users"(id, email) VALUES($1, $2)`
 	id := generateID()
 
 	if _, err := u.db.ExecContext(ctx, query, id, request.Email); err != nil {
@@ -45,8 +45,8 @@ func (u *PostgresUser) Create(
 }
 
 func (u *PostgresUser) Delete(ctx context.Context, id string) error {
-	const eventsQuery = `DELETE FROM "public"."events" WHERE user_id = $1`
-	const userQuery = `DELETE FROM "public"."users" WHERE id = $1`
+	const eventsQuery = `DELETE FROM "events" WHERE user_id = $1`
+	const userQuery = `DELETE FROM "users" WHERE id = $1`
 
 	tx, err := u.db.BeginTx(ctx, &sql.TxOptions{Isolation: sql.LevelDefault})
 
@@ -71,10 +71,10 @@ func (u *PostgresUser) Detail(
 	ctx context.Context,
 	id string) (*models.User, error) {
 
-	const userQuery = `SELECT id, email FROM "public"."users" WHERE id = $1`
+	const userQuery = `SELECT id, email FROM "users" WHERE id = $1`
 	const eventsQuery = `
 (SELECT consent_id, enabled
-FROM "public"."events"
+FROM "events"
 WHERE user_id = $1
 AND consent_id = $%v
 ORDER BY created_at

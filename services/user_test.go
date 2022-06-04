@@ -35,7 +35,7 @@ var _ = Describe("User", func() {
 			var res *models.User
 
 			BeforeEach(func() {
-				mock.ExpectExec("INSERT INTO \"public\".\"users\"").
+				mock.ExpectExec("INSERT INTO \"users\"").
 					WithArgs(sqlmock.AnyArg(), email).
 					WillReturnResult(sqlmock.NewResult(0, 1))
 
@@ -55,7 +55,7 @@ var _ = Describe("User", func() {
 			var e error
 
 			BeforeEach(func() {
-				mock.ExpectExec("INSERT INTO \"public\".\"users\"").
+				mock.ExpectExec("INSERT INTO \"users\"").
 					WithArgs(sqlmock.AnyArg(), email).
 					WillReturnError(fmt.Errorf("insert error"))
 
@@ -76,10 +76,10 @@ var _ = Describe("User", func() {
 
 			BeforeEach(func() {
 				mock.ExpectBegin()
-				mock.ExpectExec("DELETE FROM \"public\".\"events\"").
+				mock.ExpectExec("DELETE FROM \"events\"").
 					WithArgs(id).
 					WillReturnResult(sqlmock.NewResult(0, 2))
-				mock.ExpectExec("DELETE FROM \"public\".\"users\"").
+				mock.ExpectExec("DELETE FROM \"users\"").
 					WithArgs(id).
 					WillReturnResult(sqlmock.NewResult(0, 1))
 				mock.ExpectCommit()
@@ -111,7 +111,7 @@ var _ = Describe("User", func() {
 
 			BeforeEach(func() {
 				mock.ExpectBegin()
-				mock.ExpectExec("DELETE FROM \"public\".\"events\"").
+				mock.ExpectExec("DELETE FROM \"events\"").
 					WithArgs(id).
 					WillReturnError(fmt.Errorf("delete error"))
 				mock.ExpectRollback()
@@ -129,10 +129,10 @@ var _ = Describe("User", func() {
 
 			BeforeEach(func() {
 				mock.ExpectBegin()
-				mock.ExpectExec("DELETE FROM \"public\".\"events\"").
+				mock.ExpectExec("DELETE FROM \"events\"").
 					WithArgs(id).
 					WillReturnResult(sqlmock.NewResult(0, 2))
-				mock.ExpectExec("DELETE FROM \"public\".\"users\"").
+				mock.ExpectExec("DELETE FROM \"users\"").
 					WithArgs(id).
 					WillReturnError(fmt.Errorf("delete error"))
 				mock.ExpectRollback()
@@ -154,7 +154,7 @@ var _ = Describe("User", func() {
 				userRow := mock.NewRows([]string{"id", "email"}).
 					AddRow(id, email)
 
-				mock.ExpectQuery("FROM \"public\".\"users\"").
+				mock.ExpectQuery("FROM \"users\"").
 					WithArgs(id).
 					WillReturnRows(userRow)
 
@@ -162,7 +162,7 @@ var _ = Describe("User", func() {
 					AddRow(models.ConsentEmail, true).
 					AddRow(models.ConsentSMS, false)
 
-				mock.ExpectQuery("FROM \"public\".\"events\"").
+				mock.ExpectQuery("FROM \"events\"").
 					WithArgs(id, models.ConsentEmail, models.ConsentSMS).
 					WillReturnRows(eventRows).
 					RowsWillBeClosed()
@@ -182,7 +182,7 @@ var _ = Describe("User", func() {
 			var res *models.User
 
 			BeforeEach(func() {
-				mock.ExpectQuery("FROM \"public\".\"users\"").
+				mock.ExpectQuery("FROM \"users\"").
 					WithArgs(id).
 					WillReturnError(fmt.Errorf("no matching record"))
 
@@ -201,11 +201,11 @@ var _ = Describe("User", func() {
 				userRow := mock.NewRows([]string{"id", "email"}).
 					AddRow(id, email)
 
-				mock.ExpectQuery("FROM \"public\".\"users\"").
+				mock.ExpectQuery("FROM \"users\"").
 					WithArgs(id).
 					WillReturnRows(userRow)
 
-				mock.ExpectQuery("FROM \"public\".\"events\"").
+				mock.ExpectQuery("FROM \"events\"").
 					WithArgs(id, models.ConsentEmail, models.ConsentSMS).
 					WillReturnError(fmt.Errorf("query error"))
 

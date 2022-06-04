@@ -25,7 +25,7 @@ func NewEvent(db *sql.DB) Event {
 func (e *PostgresEvent) Create(
 	ctx context.Context,
 	request *models.EventCreateRequest) error {
-	const query = `INSERT INTO "public"."events"(id, user_id, consent_id, created_at, enabled) VALUES($1, $2, $3, $4, $5)`
+	const query = `INSERT INTO "events"(id, user_id, consent_id, created_at, enabled) VALUES($1, $2, $3, $4, $5)`
 
 	tx, err := e.db.BeginTx(ctx, &sql.TxOptions{Isolation: sql.LevelDefault})
 

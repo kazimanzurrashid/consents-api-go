@@ -61,18 +61,6 @@ func main() {
 
 	defer closeDB()
 
-	start := time.Now()
-
-	for db.Ping() != nil {
-		if start.After(start.Add(10 * time.Second)) {
-			closeDB()
-			log.Fatalf(
-				"failed to ping to postgres server even after retrying " +
-					"for 10 seconds")
-			return
-		}
-	}
-
 	schemaFile := filepath.Join(currentDir, "./../../schema.sql")
 	schema, err := os.ReadFile(schemaFile)
 

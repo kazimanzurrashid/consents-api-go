@@ -25,5 +25,5 @@ EXPOSE $PORT
 
 WORKDIR /usr/app
 COPY --from=builder /usr/app/server /usr/app/health-check /usr/app/schema.sql ./
-HEALTHCHECK --start-period=30s --interval=15s --timeout=1s CMD ["./health-check"]
+HEALTHCHECK --start-period=3s --interval=15s --timeout=1s CMD ["./health-check"]
 ENTRYPOINT ["./server"]

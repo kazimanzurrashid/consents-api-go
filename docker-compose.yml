@@ -11,22 +11,25 @@ services:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     healthcheck:
       test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-      interval: 15s
+      interval: 5s
       timeout: 1s
-      retries: 3
-      start_period: 3s
+      start_period: 5s
   api:
-    build:
-      context: .
-      args:
-        POSTGRES_HOST: "postgres"
-        POSTGRES_PORT: "${POSTGRES_PORT}"
-        POSTGRES_DB: "${POSTGRES_DB}"
-        POSTGRES_USER: "${POSTGRES_USER}"
-        POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-        PORT: "${PORT}"
+    build: .
+    environment:
+      POSTGRES_HOST: "postgres"
+      POSTGRES_PORT: "${POSTGRES_PORT}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      PORT: "${PORT}"
     ports:
       - "${PORT}:${PORT}"
+    healthcheck:
+      test: ./health-check
+      interval: 5s
+      timeout: 1s
+      start_period: 5s
     depends_on:
       postgres:
         condition: service_healthy

@@ -6,24 +6,7 @@ ENV CGO_ENABLED=0 \
 RUN go get -d -t ./... && go test ./...
 RUN go build ./cmd/server && go build ./cmd/health-check
 
-FROM scratch
-ARG POSTGRES_HOST
-ARG POSTGRES_PORT
-ARG POSTGRES_USER
-ARG POSTGRES_PASSWORD
-ARG POSTGRES_DB
-ARG PORT
-
-ENV POSTGRES_HOST=$POSTGRES_HOST \
-    POSTGRES_PORT=$POSTGRES_PORT \
-    POSTGRES_USER=$POSTGRES_USER \
-    POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
-    POSTGRES_DB=$POSTGRES_DB \
-    PORT=$PORT
-
-EXPOSE $PORT
-
+FROM alpine:3.16.0
 WORKDIR /usr/app
 COPY --from=builder /usr/app/server /usr/app/health-check /usr/app/schema.sql ./
-HEALTHCHECK --start-period=3s --interval=15s --timeout=1s CMD ["./health-check"]
 ENTRYPOINT ["./server"]

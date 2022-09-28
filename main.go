@@ -30,7 +30,7 @@ func main() {
 	currentDir := path.Dir(currentFile)
 
 	if os.Getenv("POSTGRES_HOST") == "" {
-		envFile := filepath.Join(currentDir, "./../../.env")
+		envFile := filepath.Join(currentDir, "./.env")
 
 		if _, err := os.Stat(envFile); err == nil {
 			if err := godotenv.Load(envFile); err != nil {
@@ -61,7 +61,7 @@ func main() {
 
 	defer closeDB()
 
-	schemaFile := filepath.Join(currentDir, "./../../schema.sql")
+	schemaFile := filepath.Join(currentDir, "./schema.sql")
 	schema, err := os.ReadFile(schemaFile)
 
 	if err != nil {

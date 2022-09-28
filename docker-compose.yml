@@ -1,38 +1,38 @@
 version: "3.8"
 services:
   postgres:
-    image: "postgres:14.4-alpine3.16"
+    image: postgres:14.4-alpine3.16
     environment:
-      POSTGRES_DB: "${POSTGRES_DB}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     healthcheck:
-      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-      interval: 5s
+      test: pg_isready -U ${POSTGRES_USER} -p ${POSTGRES_PORT} -d ${POSTGRES_DB}
+      interval: 3s
       timeout: 1s
-      start_period: 3s
+    restart: on-failure
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
   api:
     build: .
     environment:
-      POSTGRES_HOST: "postgres"
-      POSTGRES_PORT: "${POSTGRES_PORT}"
-      POSTGRES_DB: "${POSTGRES_DB}"
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      PORT: "${PORT}"
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PORT: ${PORT}
     ports:
       - "${PORT}:${PORT}"
     healthcheck:
-      test: ./health-check
+      test: wget -q -O - --tries=1 http://localhost:${PORT}/
       interval: 15s
       timeout: 1s
-      start_period: 5s
+    restart: unless-stopped
     depends_on:
       postgres:
         condition: service_healthy
-    restart: on-failure
 volumes:
   postgres-data:

@@ -66,13 +66,13 @@ func main() {
 
 	if err != nil {
 		closeDB()
-		log.Fatalf("schema file read error: %v", err)
+		log.Printf("schema file read error: %v", err)
 		return
 	}
 
 	if _, err := db.Exec(string(schema)); err != nil {
 		closeDB()
-		log.Fatalf("schema file execute error: %v", err)
+		log.Printf("schema file execute error: %v", err)
 		return
 	}
 
@@ -100,8 +100,9 @@ func main() {
 	}).Methods(http.MethodGet)
 
 	server := &http.Server{
-		Addr:    fmt.Sprintf(":%s", os.Getenv("PORT")),
-		Handler: gh.LoggingHandler(os.Stdout, router),
+		Addr:              fmt.Sprintf(":%s", os.Getenv("PORT")),
+		Handler:           gh.LoggingHandler(os.Stdout, router),
+		ReadHeaderTimeout: time.Second,
 	}
 
 	go func() {
@@ -123,6 +124,6 @@ func main() {
 
 	if err := server.Shutdown(shutdownCtx); err != nil {
 		closeDB()
-		log.Fatalf("server shutdown error: %v", err)
+		log.Printf("server shutdown error: %v", err)
 	}
 }

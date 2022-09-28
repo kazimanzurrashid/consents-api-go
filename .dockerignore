@@ -10,4 +10,4 @@ docker-compose.yml
 
 .env
 .deepsource.toml
-consents.postman_collection.json
+postman.json

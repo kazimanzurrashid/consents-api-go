@@ -4,6 +4,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/kazimanzurrashid/consents-api-go/badge)](https://www.codefactor.io/repository/github/kazimanzurrashid/consents-api-go)
 [![codecov](https://codecov.io/gh/kazimanzurrashid/consents-api-go/branch/main/graph/badge.svg?token=TWUNQ28KBC)](https://codecov.io/gh/kazimanzurrashid/consents-api-go)
 
-1. Open terminal and run `docker-compose up --build`
-2. Import `./consents.postman_collection.json` in Postman.
+1. Open terminal and run `docker-compose up`
+2. Import `./postman.json` in Postman.
 3. Run the requests sequentially.

@@ -59,6 +59,12 @@ func main() {
 		_ = db.Close()
 	}
 
+	if err = db.Ping(); err != nil {
+		closeDB()
+		log.Printf("db ping error: %v", err)
+		return
+	}
+
 	defer closeDB()
 
 	schemaFile := filepath.Join(currentDir, "./schema.sql")

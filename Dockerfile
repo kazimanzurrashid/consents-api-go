@@ -1,4 +1,4 @@
-FROM golang:1.18.6-alpine3.16 AS builder
+FROM golang:1.19.2-alpine3.16 AS builder
 WORKDIR /usr/app
 COPY . .
 ENV CGO_ENABLED=0 \
@@ -9,4 +9,5 @@ RUN go build -o server
 FROM alpine:3.16.2
 WORKDIR /usr/app
 COPY --from=builder /usr/app/server /usr/app/schema.sql ./
+EXPOSE 6001
 CMD ["./server"]

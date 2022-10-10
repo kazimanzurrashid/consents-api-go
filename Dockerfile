@@ -3,8 +3,7 @@ WORKDIR /usr/app
 COPY . .
 ENV CGO_ENABLED=0 \
     GOOS=linux
-RUN go get -d -t ./... && go test ./...
-RUN go build -o server
+RUN go get ./... && go build -o server
 
 FROM alpine:3.16.2
 WORKDIR /usr/app

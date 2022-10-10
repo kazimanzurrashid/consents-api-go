@@ -9,4 +9,4 @@ RUN go build -o server
 FROM alpine:3.16.2
 WORKDIR /usr/app
 COPY --from=builder /usr/app/server /usr/app/schema.sql ./
-ENTRYPOINT ["./server"]
+CMD ["./server"]

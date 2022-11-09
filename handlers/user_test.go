@@ -17,11 +17,11 @@ import (
 )
 
 var _ = Describe("User", func() {
+	const id = "7b5a3155-7a73-42de-b87e-23f50a10180a"
+	const email = "user@example.com"
+
 	Describe("Create", func() {
 		Context("success", func() {
-			const id = "7b5a3155-7a73-42de-b87e-23f50a10180a"
-			const email = "user@example.com"
-
 			var statusCode int
 			var res models.User
 
@@ -214,8 +214,6 @@ var _ = Describe("User", func() {
 	})
 
 	Describe("Delete", func() {
-		const id = "7b5a3155-7a73-42de-b87e-23f50a10180a"
-
 		Context("success", func() {
 			var statusCode int
 
@@ -294,9 +292,6 @@ var _ = Describe("User", func() {
 	})
 
 	Describe("Detail", func() {
-		const id = "7b5a3155-7a73-42de-b87e-23f50a10180a"
-		const email = "user@example.com"
-
 		Context("existent", func() {
 			var statusCode int
 			var res models.User

@@ -20,5 +20,6 @@
   "forwardPorts": [
     6001,
     5432
-  ]
+  ],
+  "initializeCommand": "cp .env.dev .devcontainer/.env"
 }

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup
         uses: actions/setup-go@v4
         with:
@@ -38,7 +38,7 @@ jobs:
             type=sha,format=short,prefix=
           images: ${{ secrets.DOCKERHUB_USERNAME }}/consents-api-go
       - name: Push Image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.image-meta.outputs.tags }}

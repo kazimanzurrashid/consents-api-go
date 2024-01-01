@@ -3,7 +3,7 @@ module github.com/kazimanzurrashid/consents-api-go
 go 1.19
 
 require (
-	github.com/DATA-DOG/go-sqlmock v1.5.0
+	github.com/DATA-DOG/go-sqlmock v1.5.1
 	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible
 	github.com/google/uuid v1.4.0
 	github.com/gorilla/handlers v1.5.2

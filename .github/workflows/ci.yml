@@ -14,8 +14,7 @@ jobs:
       - name: Setup
         uses: actions/setup-go@v5
         with:
-          go-version: 1.19.x
-      - name: Test
+          go-version: 1.20
         run: |
           go get -t ./...
           go test ./... -coverprofile=coverage.out
